@@ -83,13 +83,34 @@ def contains_file(file_name : str, directory : str = write_to_directory) -> bool
 if __name__ == f"__main__":
     
     # print(retrieve_html() if len(sys.argv) == 1 else retrieve_html(sys.argv[1]))
+    # for index in range(len(sys.argv)):
+    #     print(f"{index}.)", "\t", f"{sys.argv[index]}")
+    
     if len(sys.argv) == 1:
         soup = BeautifulSoup(retrieve_html(), 'html.parser')
         write_to_file("A Column of Fire.html", soup.prettify())
-    else:
+    elif len(sys.argv) == 2:
         the_html = retrieve_html(sys.argv[-1])
         soup = BeautifulSoup(the_html, 'html.parser')
+        
         if contains_file(default_file, write_to_directory) != -1:
-            write_to_file(f"{default_file}--{datetime.datetime.now()}.html", soup.prettify())
+            name = str(datetime.datetime.now())
+            write_to_file(f"{default_file}--{name[ : name.index(f".")]}.html", soup.prettify())
         else:
             write_to_file(f"{default_file}.html", soup.prettify())
+    else:
+        
+        if len(sys.argv) > 2 and len(sys.argv) < 4:
+            
+            the_html = retrieve_html(sys.argv[1])
+            soup = BeautifulSoup(the_html, "html.parser")
+            
+            write_to_file(f"{sys.argv[2] if sys.argv[2].find(f".html") == len(sys.argv[2]) - len(".html") else sys.argv[2] + ".html"}", soup.prettify())
+        
+        else:
+            
+            print(f"Unrecognized and unused arguments:")
+            for index in range(4, len(sys.argv)):
+                print(f"{sys.argv[index]}")
+        
+        
