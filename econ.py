@@ -84,11 +84,6 @@ def get_country_GDPs() ->dict[str : dict[str : float]]:
         
         column_titles.append(this_data)
         
-    # for index in range(len(column_titles)):
-    #     print(index, ".)\t", column_titles[index])
-    # print("rank : ", rank)
-    # print("rank_index : ", rank_index)
-    # print("country : ", country)
     column_body = gdp_table.find("tbody")
     
     countries = column_body.find_all("tr")
