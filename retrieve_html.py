@@ -33,6 +33,7 @@ def index_of(to_find : str, the_list : list[str], ignore_case = True) -> int:
     
     return -1
 
+
 def retrieve_html(the_url : str = "https://www.goodreads.com/book/show/33571713-a-column-of-fire", http_request = f"GET") -> str:
     """
         Retrieve the html content of a website passed in.
@@ -46,9 +47,28 @@ def retrieve_html(the_url : str = "https://www.goodreads.com/book/show/33571713-
     """
     
     if http_request not in http_requests:
-        return f"UnRecognized HTTP Request f{http_request}"
+        return f"UnRecognized HTTP Request {http_request}"
     
     return http_requests[http_request](the_url).text
+
+
+def retrieve_raw_html(the_url : str = "https://www.goodreads.com/book/show/33571713-a-column-of-fire", http_request = f"GET") -> bytes:
+    """
+        Retrieve the html content of a website passed in.
+
+        Args:
+            the_url (str, optional): The url to the website whose html is to be retrieved. 
+                Defaults to "https://www.goodreads.com/book/show/33571713-a-column-of-fire".
+
+        Returns:
+            bytes: The text of the html that is returned directly from the requests.get function
+    """
+    
+    if http_request not in http_requests:
+        return f"UnRecognized HTTP Request {http_request}"
+    
+    return http_requests[http_request](the_url)
+
 
 def write_to_file(file_name : str, data_to_write : str | bytes, directory_to_write_to : str = write_to_directory) -> bool:
     """
@@ -71,7 +91,8 @@ def write_to_file(file_name : str, data_to_write : str | bytes, directory_to_wri
             print(f"Failed writing data... ")
         
     return the_answer
-            
+
+ 
 def contains_file(file_name : str, directory : str = write_to_directory) -> bool:
     
     for this in os.listdir(directory):
@@ -79,6 +100,7 @@ def contains_file(file_name : str, directory : str = write_to_directory) -> bool
         if this == file_name:
             return True
     return False
+
 
 if __name__ == f"__main__":
     
